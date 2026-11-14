@@ -1,0 +1,22 @@
+[project]
+name = "snake-kee"
+version = "0.1.0"
+description = "蛇記冰室 Snake Kee Café: a Django + React demo of Lakebase database branching for testing on production data (PyCon HK 2026)"
+requires-python = ">=3.12"
+dependencies = [
+    "databricks-sdk>=0.89",
+    "protobuf>=4",
+    "django>=6.1",
+    "gunicorn>=23",
+    "psycopg[binary]>=3.2",
+    "whitenoise>=6.7",
+]
+
+[tool.uv]
+package = false
+
+# Public PyPI, so the lockfile works for everyone (and for Databricks Apps).
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple"
+default = true

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+<defs>
+  <radialGradient id="bg" cx="50%" cy="38%" r="70%"><stop offset="0" stop-color="#fffaf0"/><stop offset="1" stop-color="#efe6d0"/></radialGradient>
+  <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6"/></filter>
+</defs>
+<rect width="400" height="300" fill="url(#bg)"/>
+<ellipse cx="200" cy="258" rx="130" ry="16" fill="#000" opacity=".10" filter="url(#soft)"/>
+<ellipse cx="200" cy="200" rx="132" ry="46" fill="#fff" stroke="#e3dccd" stroke-width="3"/><ellipse cx="200" cy="200" rx="112" ry="34" fill="none" stroke="#1d5c4a" stroke-width="2" opacity=".35"/><path d="M132 206 q-10 -34 26 -40 q40 -6 56 20 q12 22 -10 34 q-20 10 -36 2 q-24 8 -36 -16 Z" fill="#d9892e" stroke="#a85d14" stroke-width="3" transform="rotate(-8 132 206)"/><path d="M196 192 q-10 -34 26 -40 q40 -6 56 20 q12 22 -10 34 q-20 10 -36 2 q-24 8 -36 -16 Z" fill="#d9892e" stroke="#a85d14" stroke-width="3" transform="rotate(6 196 192)"/><path d="M250 214 q-10 -34 26 -40 q40 -6 56 20 q12 22 -10 34 q-20 10 -36 2 q-24 8 -36 -16 Z" fill="#d9892e" stroke="#a85d14" stroke-width="3" transform="rotate(-4 250 214)"/><path d="M282 166 l40 6 l-22 26 Z" fill="#f7d000" stroke="#e0a800" stroke-width="3"/>
+</svg>

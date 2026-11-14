@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+
+# Django
+staticfiles/
+*.sqlite3
+
+# Local config & secrets
+.env
+# cached branch hosts + short-lived database tokens
+.lakebase/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/

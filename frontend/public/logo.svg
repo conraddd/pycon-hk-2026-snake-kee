@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <defs>
+    <path id="arcTop" d="M20 120 A100 100 0 0 1 220 120"/>
+    <path id="arcBottom" d="M10 120 A110 110 0 0 0 230 120"/>
+  </defs>
+  <circle cx="120" cy="120" r="118" fill="#c8202f"/>
+  <circle cx="120" cy="120" r="92" fill="#fff"/>
+  <circle cx="120" cy="120" r="88" fill="#fbf5e9"/>
+  <text font-family="Futura, 'Avenir Next', 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="700"
+        letter-spacing="4" fill="#fff"><textPath href="#arcTop" startOffset="50%" text-anchor="middle">SNAKE KEE CAFÉ</textPath></text>
+  <text font-family="Futura, 'Avenir Next', 'Helvetica Neue', Arial, sans-serif" font-size="11" font-weight="700"
+        letter-spacing="3" fill="#fff"><textPath href="#arcBottom" startOffset="50%" text-anchor="middle">EST. 2026 · HONG KONG</textPath></text>
+  <circle cx="22" cy="120" r="3" fill="#fff"/><circle cx="218" cy="120" r="3" fill="#fff"/>
+  <g transform="translate(0 6)">
+    <!-- steam -->
+    <path d="M104 52 c-7 -8 7 -13 0 -21 M120 48 c-7 -8 7 -13 0 -21 M136 52 c-7 -8 7 -13 0 -21" fill="none"
+          stroke="#1d5c4a" stroke-width="4" stroke-linecap="round" opacity=".5"/>
+    <!-- the snake is the cup's handle (Python blue & yellow) -->
+    <path d="M156 78 c30 -6 36 40 4 44" fill="none" stroke="#3776ab" stroke-width="11" stroke-linecap="round"/>
+    <path d="M156 78 c30 -6 36 40 4 44" fill="none" stroke="#ffd43b" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="2 7"/>
+    <!-- HK-style thick cup -->
+    <path d="M76 68 L164 68 L154 122 Q120 135 86 122 Z" fill="#fff" stroke="#d9d0bf" stroke-width="2.5"/>
+    <path d="M81 95 L159 95 L157 105 Q120 114 83 105 Z" fill="#1d5c4a"/>
+    <ellipse cx="120" cy="68" rx="44" ry="10" fill="#fff" stroke="#d9d0bf" stroke-width="2.5"/>
+    <ellipse cx="120" cy="69" rx="38" ry="7" fill="#b98552"/>
+    <!-- snake head peeking over the rim -->
+    <ellipse cx="166" cy="62" rx="11" ry="8.5" fill="#3776ab"/>
+    <circle cx="169" cy="59.5" r="2.4" fill="#fff"/><circle cx="169.7" cy="59.5" r="1.2" fill="#2a2522"/>
+    <path d="M176 64 l7 1.5 m-7 -1.5 l6 4.5" stroke="#c8202f" stroke-width="1.8" stroke-linecap="round"/>
+  </g>
+  <text x="120" y="170" text-anchor="middle" font-family="'PingFang HK','Noto Sans TC','Microsoft JhengHei',sans-serif"
+        font-size="30" font-weight="900" fill="#c8202f" letter-spacing="1">蛇記冰室</text>
+  <text x="120" y="188" text-anchor="middle" font-family="'PingFang HK','Noto Sans TC',sans-serif" font-size="10"
+        font-weight="700" letter-spacing="4" fill="#1d5c4a">冰室 · 茶餐廳</text>
+</svg>

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# git branch -> Lakebase branch.
+# After every branch checkout (e.g. `git checkout -b feat/x`), make sure a Lakebase branch exists for it,
+# created from `production` if it's new. So each git branch gets its own copy of production data.
+# Switching to a branch that already has one is a quick no-op.
+# Enable once per clone:   git config core.hooksPath .githooks
+
+# $3 == 1 for branch checkouts (0 for file checkouts)
+[ "$3" = "1" ] || exit 0
+cd "$(git rev-parse --show-toplevel)" || exit 0
+command -v uv >/dev/null || { echo "lakebase hook: uv not found, skipping"; exit 0; }
+
+uv run --quiet python -m snakekee.lakebase ensure --quiet || echo "⚠️  Lakebase branch setup failed (checkout itself is fine). Run: uv run python -m snakekee.lakebase ensure"
+exit 0

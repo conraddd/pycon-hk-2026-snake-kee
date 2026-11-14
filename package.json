@@ -1,0 +1,8 @@
+{
+  "name": "snake-kee",
+  "private": true,
+  "description": "Builds the React app in frontend/ (used by Databricks Apps at deploy time).",
+  "scripts": {
+    "build": "npm --prefix frontend ci && npm --prefix frontend run build"
+  }
+}

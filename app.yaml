@@ -1,0 +1,15 @@
+# Databricks Apps: how to run 蛇記冰室 in your workspace.
+# The app's service principal connects to the `production` branch of your Lakebase project
+# (granted via the app's Lakebase resource, see README "Deploy as a Databricks App").
+command: ["gunicorn", "snakekee.wsgi:application", "--bind", "0.0.0.0:$DATABRICKS_APP_PORT", "--workers", "2", "--timeout", "60"]
+env:
+  - name: LAKEBASE_PROJECT
+    value: your-project-id  # set from LAKEBASE_PROJECT in .env by scripts/deploy_app.py
+  - name: LAKEBASE_BRANCH
+    value: production
+  - name: LAKEBASE_AUTO_CREATE
+    value: "0"
+  - name: DJANGO_DEBUG
+    value: "0"
+  - name: DJANGO_ALLOWED_HOSTS
+    value: ".databricksapps.com,localhost,127.0.0.1"
