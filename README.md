@@ -52,7 +52,8 @@ A Lakebase branch is just a Postgres connection string, so the same idea works w
 
 You need: [uv](https://docs.astral.sh/uv/) (it installs Python 3.12 for you), Node 22+,
 the [Databricks CLI](https://docs.databricks.com/aws/en/dev-tools/cli/install), and a Databricks workspace with
-Lakebase, for example [Databricks Free Edition](https://www.databricks.com/learn/free-edition) (not yet tested with this repo).
+Lakebase, for example [Databricks Free Edition](https://www.databricks.com/learn/free-edition) (tested; see
+[docs/free-edition.md](docs/free-edition.md) for idle endpoints).
 Works on macOS and Linux; on Windows use WSL (the git hook is a bash script).
 
 ```bash
