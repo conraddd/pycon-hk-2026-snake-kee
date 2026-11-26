@@ -45,6 +45,13 @@ DEV_GIT_BRANCHES = {"main", "master", "develop"}
 DEV_BRANCH_ID = "dev"
 PRODUCTION = "production"
 
+# Databricks Free Edition caps endpoints at 1 CU. Observed on a Free Edition workspace (2026-11-23):
+#   Requested compute size (2.0 CU) exceeds the maximum allowed (1.0 CU) for this workspace tier.
+# A new branch inherits valid defaults, so this error is not fatal.
+FREE_EDITION_COMPUTE_ERRORS = {
+    "exceeds the maximum allowed (1.0 cu)": "endpoints are capped at 1 CU",
+}
+
 
 def load_dotenv() -> None:
     """Tiny .env loader so we don't need python-dotenv. Variables already set in the environment win."""
@@ -157,23 +164,37 @@ def size_compute(endpoint: str) -> None:
     """Keep a branch's compute small and sleepy: autoscale between LAKEBASE_MIN_CU and LAKEBASE_MAX_CU,
     and scale to zero after LAKEBASE_SUSPEND_MINUTES without connections.
 
-    New branches otherwise inherit the project's default compute settings. This calls the REST API
-    directly: the SDK's update_endpoint sends the field mask in camelCase, which the API rejects.
+    New branches otherwise inherit the project's default compute settings. On Databricks Free
+    Edition, endpoints are capped at 1 CU; a new branch inherits valid defaults, so that error
+    keeps the defaults instead of failing. This calls the REST API directly: the SDK's
+    update_endpoint sends the field mask in camelCase, which the API rejects. Other errors still
+    propagate.
     """
+    from databricks.sdk.errors import BadRequest
+
     min_cu = float(os.environ.get("LAKEBASE_MIN_CU", "0.5"))
     max_cu = float(os.environ.get("LAKEBASE_MAX_CU", "2"))
     suspend = round(float(os.environ.get("LAKEBASE_SUSPEND_MINUTES", "5")) * 60)
     fields = ("autoscaling_limit_min_cu", "autoscaling_limit_max_cu", "suspend_timeout_duration")
-    client().api_client.do(
-        "PATCH", f"/api/2.0/postgres/{endpoint}",
-        query={"update_mask": ",".join(f"spec.{f}" for f in fields)},
-        body={"name": endpoint, "spec": {
-            "endpoint_type": "ENDPOINT_TYPE_READ_WRITE",
-            "autoscaling_limit_min_cu": min_cu,
-            "autoscaling_limit_max_cu": max_cu,
-            "suspend_timeout_duration": f"{suspend}s",
-        }},
-    )
+    try:
+        client().api_client.do(
+            "PATCH", f"/api/2.0/postgres/{endpoint}",
+            query={"update_mask": ",".join(f"spec.{f}" for f in fields)},
+            body={"name": endpoint, "spec": {
+                "endpoint_type": "ENDPOINT_TYPE_READ_WRITE",
+                "autoscaling_limit_min_cu": min_cu,
+                "autoscaling_limit_max_cu": max_cu,
+                "suspend_timeout_duration": f"{suspend}s",
+            }},
+        )
+    except BadRequest as err:
+        message = str(err).lower()
+        limit = next((why for text, why in FREE_EDITION_COMPUTE_ERRORS.items() if text in message),
+                     None)
+        if limit is None:
+            raise
+        print(f"⚠️  Databricks Free Edition: {limit}; keeping the branch's defaults ({err})",
+              flush=True)
 
 
 @dataclass(frozen=True)
