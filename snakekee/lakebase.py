@@ -45,11 +45,14 @@ DEV_GIT_BRANCHES = {"main", "master", "develop"}
 DEV_BRANCH_ID = "dev"
 PRODUCTION = "production"
 
-# Databricks Free Edition caps endpoints at 1 CU. Observed on a Free Edition workspace (2026-11-23):
+# Databricks Free Edition limits, observed on a Free Edition workspace (2026-11-23):
 #   Requested compute size (2.0 CU) exceeds the maximum allowed (1.0 CU) for this workspace tier.
-# A new branch inherits valid defaults, so this error is not fatal.
+#   Auto-suspend timeout cannot be modified for this workspace tier.
+# Free Edition caps endpoints at 1 CU and does not allow changing the auto-suspend timeout.
+# A new branch inherits valid defaults, so neither error is fatal.
 FREE_EDITION_COMPUTE_ERRORS = {
     "exceeds the maximum allowed (1.0 cu)": "endpoints are capped at 1 CU",
+    "auto-suspend timeout cannot be modified": "the auto-suspend timeout cannot be changed",
 }
 
 
@@ -165,10 +168,10 @@ def size_compute(endpoint: str) -> None:
     and scale to zero after LAKEBASE_SUSPEND_MINUTES without connections.
 
     New branches otherwise inherit the project's default compute settings. On Databricks Free
-    Edition, endpoints are capped at 1 CU; a new branch inherits valid defaults, so that error
-    keeps the defaults instead of failing. This calls the REST API directly: the SDK's
-    update_endpoint sends the field mask in camelCase, which the API rejects. Other errors still
-    propagate.
+    Edition, endpoints are capped at 1 CU and the auto-suspend timeout cannot be changed; a new
+    branch inherits valid defaults, so those errors keep the defaults instead of failing. This
+    calls the REST API directly: the SDK's update_endpoint sends the field mask in camelCase,
+    which the API rejects. Other errors still propagate.
     """
     from databricks.sdk.errors import BadRequest
 
